@@ -170,6 +170,29 @@ Manual install: copy `custom_components/PJM_sensor` into your HA `config/custom_
         temperature: 78
 ```
 
+## 💡 Example: Markdown Card Configuration
+```yaml
+  ### Five Coincident Peaks
+  {% for peak in state_attr('sensor.coincident_peak_prediction_pjm_rto', 'top_five_peaks') %}
+    {% set parts = peak.split(' - ') %}
+    {% set datetime = parts[0].strip() %}
+    {% set mw = parts[1].strip() %}
+  - **{{ mw }}** - {{ datetime }}
+  {% endfor %}
+
+ ### Predicted Peak
+ {{ '{:,.0f}'.format(state_attr('sensor.coincident_peak_prediction_pjm_rto', 'predicted_peak')) }} MW
+
+ ### Predicted Peak Time:  
+{% set ts = state_attr('sensor.coincident_peak_prediction_pjm_rto', 'predicted_peak_time') %}{{ as_datetime(ts).astimezone().strftime('%B %d, %Y, %-I:%M:%S %p') }}
+
+ ### Observed Peak
+ {{ '{:,.0f}'.format(state_attr('sensor.coincident_peak_prediction_pjm_rto', 'observed_peak')) }} MW
+
+ ### Observed Peak Time:  
+{% set ts = state_attr('sensor.coincident_peak_prediction_pjm_rto', 'observed_peak_time') %}{{ as_datetime(ts).astimezone().strftime('%B %d, %Y, %-I:%M:%S %p') }}
+```
+
 ---
 
 ## Historic board (controller grade, offline)
