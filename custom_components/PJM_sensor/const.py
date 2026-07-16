@@ -20,9 +20,12 @@ CONF_COINCIDENT_PEAK_PREDICTION_SYSTEM = "coincident_peak_prediction_system"
 CONF_PEAK_THRESHOLD = "peak_threshold"
 CONF_ACCURACY_THRESHOLD = "accuracy_threshold"
 
-# Default thresholds for coincident peak predictions
-DEFAULT_PEAK_THRESHOLD_ZONE = 17000  # MW
-DEFAULT_PEAK_THRESHOLD_SYSTEM = 138000  # MW
+# Default thresholds for coincident peak predictions (MW).
+# Used as the high-risk *floor* with max(threshold, 5th stored peak).
+# 2026 summer board: COMED top peaks ~19–21k; RTO ~150–163k (5th ~145k early).
+# 18k / 150k better match mid-season heat than legacy 17k / 138k.
+DEFAULT_PEAK_THRESHOLD_ZONE = 18000  # MW
+DEFAULT_PEAK_THRESHOLD_SYSTEM = 150000  # MW
 DEFAULT_ACCURACY_THRESHOLD = 0.8
 
 # Define available zones
@@ -71,6 +74,3 @@ SENSOR_TYPES = {
     CONF_COINCIDENT_PEAK_PREDICTION_ZONE: ["Coincident Peak Prediction (Zone)", "MW"],
     CONF_COINCIDENT_PEAK_PREDICTION_SYSTEM: ["Coincident Peak Prediction (System)", "MW"],
 }
-
-# Integration version for bias store compatibility checking
-INTEGRATION_VERSION = "2.1.6"
